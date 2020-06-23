@@ -1,4 +1,4 @@
-package javaBean;
+package util;
 
 public interface LocationFactory
 {

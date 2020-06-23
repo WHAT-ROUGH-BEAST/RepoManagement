@@ -1,11 +1,24 @@
 package javaBean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OnlyReposite extends Reposite
 {
+	public OnlyReposite()
+	{
+		super();
+	}
+	
+	public OnlyReposite(List<Object> attrs)
+	{
+		super((String) attrs.get(0), (ArrayList<Shelf>) attrs.get(1));
+	}
+	
 	@Override
 	public String getName()
 	{
-		throw new RuntimeException("OnlyReposite doesn't support this feature");
+		return "defaultReposite";
 	}
 	
 	@Override

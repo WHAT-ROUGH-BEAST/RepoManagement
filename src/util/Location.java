@@ -1,4 +1,4 @@
-package javaBean;
+package util;
 
 public abstract class Location
 {
@@ -31,7 +31,7 @@ public abstract class Location
 	@Override
 	public String toString()
 	{
-		return repo + "-" + shelf + "-" + pos;
+		return repo.trim() + "--" + shelf.trim() + "--" + pos;
 	}
 	
 	@Override 

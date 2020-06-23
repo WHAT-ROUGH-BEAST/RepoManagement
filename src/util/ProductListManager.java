@@ -14,7 +14,7 @@ public abstract class ProductListManager
 		this.products = products;
 	}
 	
-	public abstract void addProduct(Product product);
+	public abstract void addProduct(Product product) throws Exception;
 	
 	public void removeProduct(String id)
 	{
@@ -28,16 +28,20 @@ public abstract class ProductListManager
 			if (iterator.next().getId().equals(id))
 			{
 				iterator.remove();
+				
 				return;
 			}
 		}
+		
+		throw new RuntimeException("can't find product id: " + id);
 	}
 	
-	protected Product mergeProduct(Product product)
+
+	protected Product mergeProduct(final Product product)
 	{
 		for (Product p : products)
 		{
-			if (p.getId().equals(product))
+			if (p.getId().equals(product.getId()))
 			{
 				products.remove(p);
 				p.setAmount(p.getAmount() + product.getAmount());

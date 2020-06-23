@@ -1,4 +1,6 @@
-package javaBean;
+package util;
+
+import javaBean.OnlyRepoLocation;
 
 public class OnlyRepoLocationFactory implements LocationFactory
 {
