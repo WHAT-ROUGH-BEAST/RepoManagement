@@ -34,7 +34,10 @@ public class UnlmtProductNumShelfListManager extends ProductListManager
 			throw new Exception("shelf oversize");
 		}
 		
-		// TODO : 数据库
+		// 数据库
+		DataBase db = DataBase.getInstance();
+		db.addProduct(product);
+		db.killInstance();
 	}
 	
 	@Override
@@ -43,7 +46,10 @@ public class UnlmtProductNumShelfListManager extends ProductListManager
 		try
 		{
 			super.removeProduct(id);
-			// TODO : 数据库
+			// 数据库
+			DataBase db = DataBase.getInstance();
+			db.removeProduct(id);
+			db.killInstance();
 		}
 		catch (Exception e)
 		{

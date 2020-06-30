@@ -21,9 +21,10 @@ public class CheckoutHelper implements CheckoutInterface
 	private List<Order> orders;
 	private static LinkedList<PickingTask> tasks = new LinkedList<>();
 	
-	public CheckoutHelper()
+	public CheckoutHelper(List<Reposite> repos)
 	{
 		orders = new ArrayList<>();
+		setReposites(repos);
 	}
 	
 	// 当前所有的仓库

@@ -23,11 +23,15 @@ interface RepositeDB
 	Shelf getShelf(String repoName, String shelfName);
 	Product getProduct(String repoName, String shelfName, int loc);
 	
+//	void addRepo(String name);
+//	void addShelf(String name);
 	void addProduct(Product product);
 	
 //	void removeRepo(String name);
 //	void removeShelf(String name);
 	void removeProduct(String id);
+	
+	void updateProduct(Product product);
 }
 
 interface OrderDB
@@ -37,7 +41,6 @@ interface OrderDB
 }
 
 /**
- * 
  * @author 18069 单例模式
  */
 public class DataBase implements RepositeDB
@@ -143,6 +146,7 @@ public class DataBase implements RepositeDB
 	
 	private void executeUpdateStmt(String sql)
 	{
+		closeStmt(stmt); // 关闭上次stmt
 		stmt = null;
 		try
 		{
@@ -161,6 +165,7 @@ public class DataBase implements RepositeDB
 	
 	private ResultSet executeQueryStmt(String sql)
 	{
+		closeStmt(stmt); // 关闭上次stmt
 		stmt = null;
 		ResultSet rs = null;
 		try
@@ -333,16 +338,21 @@ public class DataBase implements RepositeDB
 		return null;
 	}
 	
+	@Override
+	public void updateProduct(Product product)
+	{
+		String sql = "UPDATE Reposite" + "\n"
+				+ "SET AMOUNT=" + product.getAmount() + ","
+				+ "LOC_R=" + toDBString(product.getLocation().getRepo()) + ","
+				+ "LOC_S=" + toDBString(product.getLocation().getShelf()) + ","
+				+ "LOC_L=" + product.getLocation().getPos()
+				+ "WHERE ID=" + toDBString(product.getId());
+		
+		executeUpdateStmt(sql);
+	}
+	
 	private String toDBString(String str)
 	{
 		return "'" + str + "'";
-	}
-
-	public static void main(String[] args)
-	{
-		DataBase db = DataBase.getInstance();
-		Reposite p = db.getRepo("defaultReposite");
-		
-		System.out.println(p.getShelfs().get(1).getProducts().get(1).getLocation());
 	}
 }

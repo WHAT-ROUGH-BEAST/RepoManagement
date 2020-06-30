@@ -1,5 +1,6 @@
 package javaBean;
 
+import util.DataBase;
 import util.Location;
 
 public abstract class Product implements Cloneable, Comparable<Product>
@@ -48,13 +49,20 @@ public abstract class Product implements Cloneable, Comparable<Product>
 	public void setAmount(int amount)
 	{
 		this.amount = amount;
-		// TODO : 数据库
+		updateDBProduct(this);
 	}
 	
 	public void setLocation(Location location)
 	{
 		this.location = location;
-		// TODO : 数据库
+		updateDBProduct(this);
+	}
+	
+	private void updateDBProduct(Product product)
+	{
+		DataBase db = DataBase.getInstance();
+		db.updateProduct(product);
+		db.killInstance();
 	}
 	
 	public abstract Product clone();
